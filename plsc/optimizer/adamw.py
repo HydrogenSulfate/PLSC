@@ -117,7 +117,7 @@ class AdamW(Optimizer):
                     sub_exp_avg_sq = paddle.gather(
                         exp_avg_sq, index, axis=axis)
 
-                    _, _, _, _, _, _ = _C_ops.adamw(
+                    _, _, _, _, _, *_ = _C_ops.adamw(
                         sub_p, grad,
                         paddle.to_tensor(lr), sub_exp_avg, sub_exp_avg_sq,
                         beta1_pow, beta2_pow, master_param, sub_p, sub_exp_avg,
@@ -133,7 +133,7 @@ class AdamW(Optimizer):
                     exp_avg_sq.scatter_(index, sub_exp_avg_sq)
 
                 else:
-                    _, _, _, _, _, _ = _C_ops.adamw(
+                    _, _, _, _, _, *_ = _C_ops.adamw(
                         p, grad,
                         paddle.to_tensor(lr), exp_avg, exp_avg_sq, beta1_pow,
                         beta2_pow, master_param, p, exp_avg, exp_avg_sq,
